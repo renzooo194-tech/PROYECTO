@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Gamificación</title>
+    <link rel="stylesheet" th:href="@{/css/logros.css}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🏆 Retos</h1>
+
+    <h2 id="puntos">Puntos: 0</h2>
+
+    <div id="retos"></div>
+
+    <h3>🎖 Insignias</h3>
+    <div id="insignias"></div>
+
+</div>
+
+<script>
+
+let puntos = 0;
+
+let retos = [
+    {texto: "Estudiar 1 hora", puntos: 10, hecho: false},
+    {texto: "Leer 15 páginas", puntos: 15, hecho: false},
+    {texto: "Resolver 10 ejercicios", puntos: 20, hecho: false},
+    {texto: "Repasar clase", puntos: 10, hecho: false},
+    {texto: "Ver video educativo", puntos: 10, hecho: false},
+    {texto: "Hacer resumen", puntos: 15, hecho: false},
+    {texto: "Practicar matemáticas", puntos: 20, hecho: false},
+    {texto: "Leer historia", puntos: 10, hecho: false}
+];
+
+function render() {
+
+    document.getElementById("puntos").innerText = "Puntos: " + puntos;
+
+    let html = "";
+    retos.forEach((r, i) => {
+        html += `
+        <div class="reto ${r.hecho ? 'done' : ''}">
+            <strong>${r.texto}</strong>
+            <span>+${r.puntos} pts</span>
+            <button onclick="completar(${i})" ${r.hecho ? "disabled" : ""}>
+                ${r.hecho ? "✔ Completado" : "Completar"}
+            </button>
+        </div>`;
+    });
+
+    document.getElementById("retos").innerHTML = html;
+
+    let insignias = "";
+    if (puntos >= 20) insignias += "🥉 ";
+    if (puntos >= 50) insignias += "🥈 ";
+    if (puntos >= 100) insignias += "🥇 ";
+
+    document.getElementById("insignias").innerText = insignias;
+}
+
+function completar(i) {
+    if (!retos[i].hecho) {
+        retos[i].hecho = true;
+        puntos += retos[i].puntos;
+
+        alert("🎉 Ganaste " + retos[i].puntos + " puntos!");
+        render();
+    }
+}
+
+render();
+
+</script>
+
+</body>
+</html>
