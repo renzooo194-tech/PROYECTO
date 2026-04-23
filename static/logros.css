@@ -1,0 +1,36 @@
+body {
+    font-family: Arial;
+    background: #2f3640;
+    color: white;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+.reto {
+    background: #353b48;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+.reto span {
+    float: right;
+    color: #00a8ff;
+}
+
+.reto button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    background: #00a8ff;
+    border: none;
+    color: white;
+}
+
+.done {
+    background: #44bd32;
+}
