@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f5f6fa;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #1e1e2f;
+    color: white;
+    position: fixed;
+    padding: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: #ccc;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    background: #575fcf;
+    color: white;
+}
+
+/* MAIN */
+.main {
+    margin-left: 240px;
+    padding: 20px;
+}
+
+/* CARDS */
+.card {
+    background: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+}
+
+/* INPUT */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+/* BUTTON */
+button {
+    background: #575fcf;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+/* LISTA */
+.item {
+    background: #dcdde1;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.item span {
+    float: right;
+    cursor: pointer;
+}
+
+/* RESULTADO */
+.badge {
+    background: #00a8ff;
+    color: white;
+    padding: 5px 10px;
+    margin: 5px;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    top: 30%;
+    left: 40%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+}
+
+.bloque {
+    background: #f1f2f6;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+}
+
+.hora {
+    font-size: 13px;
+    color: #57606f;
+}
