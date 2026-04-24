@@ -1,36 +1,79 @@
 body {
-    font-family: Arial;
-    background: #2f3640;
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     color: white;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 2.5rem;
 }
 
 .container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
 }
 
-.reto {
-    background: #353b48;
-    padding: 15px;
+.card {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
     margin: 10px 0;
+}
+
+button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 8px;
+    background: #00c853;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00e676;
+}
+
+.barra {
+    width: 100%;
+    height: 20px;
+    background: rgba(255,255,255,0.2);
     border-radius: 10px;
 }
 
-.reto span {
-    float: right;
-    color: #00a8ff;
+#progreso {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00e5ff, #00c853);
+    border-radius: 10px;
+    transition: width 0.3s;
 }
 
-.reto button {
+#insignias {
+    font-size: 2rem;
     margin-top: 10px;
-    width: 100%;
-    padding: 8px;
-    background: #00a8ff;
-    border: none;
-    color: white;
-}
-
-.done {
-    background: #44bd32;
 }
