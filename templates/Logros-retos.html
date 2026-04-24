@@ -55,36 +55,55 @@ let puntos = 0;
 let nivel = 1;
 let racha = 0;
 
-// Retos por nivel
-function generarRetos() {
+// Pool de retos
+let poolRetos = [
+    {texto: "Completar 1 ejercicio", pts: 10},
+    {texto: "Estudiar 1 día", pts: 15},
+    {texto: "Practicar 3 veces", pts: 20},
+    {texto: "Leer un tema", pts: 25},
+    {texto: "Resolver 5 preguntas", pts: 30},
+    {texto: "Estudiar 2 horas", pts: 35},
+    {texto: "Repasar tema difícil", pts: 40},
+    {texto: "Practicar matemáticas", pts: 45},
+    {texto: "Resolver examen corto", pts: 50}
+];
+
+// Retos activos (3 visibles)
+let retosActivos = [];
+
+// Iniciar retos
+function iniciarRetos() {
+    for (let i = 0; i < 3; i++) {
+        agregarReto();
+    }
+    renderRetos();
+}
+
+// Agregar reto según nivel
+function agregarReto() {
+    let posibles = poolRetos.filter(r => r.pts <= nivel * 20);
+    let random = posibles[Math.floor(Math.random() * posibles.length)];
+    retosActivos.push(random);
+}
+
+// Mostrar retos
+function renderRetos() {
     let lista = document.getElementById("retos");
     lista.innerHTML = "";
 
-    let retos = [
-        {texto: "Completar 1 ejercicio", pts: 10},
-        {texto: "Estudiar 1 día", pts: 15},
-        {texto: "Practicar 3 veces", pts: 20}
-    ];
-
-    if (nivel >= 3) {
-        retos.push({texto: "Estudiar 5 días seguidos", pts: 40});
-    }
-    if (nivel >= 5) {
-        retos.push({texto: "Completar 10 ejercicios", pts: 60});
-    }
-    if (nivel >= 8) {
-        retos.push({texto: "Dominar un curso", pts: 100});
-    }
-
-    retos.forEach(r => {
+    retosActivos.forEach((r, index) => {
         let li = document.createElement("li");
-        li.innerHTML = `${r.texto} <button onclick="completar(${r.pts})">+${r.pts}</button>`;
+        li.innerHTML = `${r.texto} 
+        <button onclick="completar(${index})">+${r.pts}</button>`;
         lista.appendChild(li);
     });
 }
 
-function completar(valor) {
-    puntos += valor;
+// Completar reto
+function completar(index) {
+    let reto = retosActivos[index];
+
+    puntos += reto.pts;
     racha += 1;
 
     // Subir nivel
@@ -92,23 +111,32 @@ function completar(valor) {
         nivel++;
     }
 
+    // Eliminar reto completado
+    retosActivos.splice(index, 1);
+
+    // Agregar uno nuevo
+    agregarReto();
+
+    actualizarUI();
+    renderRetos();
+}
+
+// Actualizar interfaz
+function actualizarUI() {
     document.getElementById("puntos").innerText = puntos;
     document.getElementById("nivel").innerText = nivel;
     document.getElementById("racha").innerText = racha + " días";
 
-    // Progreso
     let progreso = (puntos % 50) * 2;
     document.getElementById("progreso").style.width = progreso + "%";
 
     actualizarRango();
     actualizarInsignias();
-    generarRetos();
 }
 
 // Rangos
 function actualizarRango() {
     let rango = "Bronce";
-
     if (nivel >= 3) rango = "Plata";
     if (nivel >= 5) rango = "Oro";
     if (nivel >= 8) rango = "Diamante";
@@ -119,19 +147,53 @@ function actualizarRango() {
 // Insignias
 function actualizarInsignias() {
     let cont = document.getElementById("insignias");
-    let insignias = "";
+    let ins = "";
 
-    if (puntos >= 20) insignias += "🥇 ";
-    if (puntos >= 50) insignias += "🔥 ";
-    if (puntos >= 100) insignias += "🚀 ";
-    if (puntos >= 150) insignias += "👑 ";
-    if (puntos >= 200) insignias += "💎 ";
+    // 🥇 PRINCIPIANTE
+    if (puntos >= 50) {
+        ins += "🥇 ";
+    }
 
-    cont.innerHTML = insignias;
+    // 🔥 CONSTANTE
+    if (racha >= 5) {
+        ins += "🔥 ";
+    }
+
+    // 🚀 DEDICADO
+    if (puntos >= 150 && nivel >= 3) {
+        ins += "🚀 ";
+    }
+
+    // 🧠 EXPERTO
+    if (puntos >= 300 && nivel >= 5) {
+        ins += "🧠 ";
+    }
+
+    // 👑 MAESTRO
+    if (puntos >= 500 && nivel >= 7 && racha >= 10) {
+        ins += "👑 ";
+    }
+
+    // 💎 LEGENDARIO (difícil de verdad)
+    if (puntos >= 800 && nivel >= 10 && racha >= 15) {
+        ins += "💎 ";
+    }
+
+    // 🏆 IMPARABLE
+    if (racha >= 20) {
+        ins += "🏆 ";
+    }
+
+    // ⚡ VELOCISTA
+    if (puntos >= 400 && racha >= 8) {
+        ins += "⚡ ";
+    }
+
+    cont.innerHTML = ins || "Sin insignias aún 😢";
 }
 
-// iniciar
-generarRetos();
+// Iniciar sistema
+iniciarRetos();
 </script>
 
 </body>
